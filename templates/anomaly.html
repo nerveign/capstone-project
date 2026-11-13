@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Anomaly Detection - Smart Power Monitoring</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+
+<body>
+
+<!-- =========================================================
+     SIDEBAR
+========================================================= -->
+
+<aside class="sidebar">
+
+    <div class="brand">
+        <div class="brand-icon"></div>
+
+        <h2>
+            SMART POWER<br>
+            MONITORING
+        </h2>
+    </div>
+
+
+    <nav class="menu">
+
+        <a href="/" class="menu-item">
+            Dashboard
+        </a>
+
+        <a href="/#realtime" class="menu-item">
+            ◉ Realtime Monitoring
+        </a>
+
+        <a href="/#historical" class="menu-item">
+            ▥ Historical Data
+        </a>
+
+        {# Menu Energy Analysis disembunyikan sementara. Hapus pembuka dan penutup komentar ini untuk menampilkan lagi.
+<a href="/#energy-analysis" class="menu-item">
+            ⚡ Energy Analysis
+        </a>
+#}
+
+
+        <div class="menu-section-title">
+            AI ANALYTICS
+        </div>
+
+
+        <a href="/anomaly" class="menu-item active">
+            △ Anomaly Detection
+        </a>
+
+        <a href="/prediction" class="menu-item">
+            ↗ Load Prediction
+        </a>
+
+        <a href="/classification" class="menu-item">
+            ◇ Load Classification
+        </a>
+
+
+        {# Menu System Status, Reports, Settings disembunyikan sementara. Hapus pembuka dan penutup komentar ini untuk menampilkan lagi.
+<a href="/#system-status-panel" class="menu-item">
+            ◇ System Status
+        </a>
+
+        <a href="/#reports-settings" class="menu-item">
+            ▤ Reports
+        </a>
+
+        <a href="/#reports-settings" class="menu-item">
+            ⚙ Settings
+        </a>
+#}
+
+    </nav>
+
+
+    <div class="gateway-box">
+
+        <div>
+            <span class="online-dot"></span>
+            SDP LINE 14 GATEWAY
+        </div>
+
+        <br>
+
+        <div style="color:#39e785;">
+            Gateway Online
+        </div>
+
+        <br>
+
+        <div style="text-align:center;">
+            v1.0.0
+        </div>
+
+    </div>
+
+</aside>
+
+
+<!-- =========================================================
+     MAIN CONTENT
+========================================================= -->
+
+<main class="main">
+
+
+    <!-- =====================================================
+         PAGE HEADER
+    ====================================================== -->
+
+    <header class="ai-page-header">
+
+        <div>
+
+            <div class="ai-page-label">
+                AI ANALYTICS
+            </div>
+
+            <h1>
+                ANOMALY DETECTION
+            </h1>
+
+            <h2>
+                Isolation Forest
+            </h2>
+
+            <p>
+                Sistem deteksi kondisi tidak normal pada
+                penggunaan energi listrik.
+            </p>
+
+        </div>
+
+
+        <div class="system-online">
+            ● SYSTEM ONLINE
+        </div>
+
+    </header>
+
+
+
+    <!-- =====================================================
+         MODEL KPI
+    ====================================================== -->
+
+    <section class="ai-kpi-grid">
+
+
+        <!-- MODEL STATUS -->
+
+        <div class="ai-kpi-card">
+
+            <div class="ai-kpi-label">
+                MODEL STATUS
+            </div>
+
+            <div class="ai-kpi-value waiting">
+                WAITING MODEL
+            </div>
+
+            <div class="ai-kpi-description">
+                Isolation Forest belum dimuat.
+            </div>
+
+        </div>
+
+
+        <!-- INFERENCE STATUS -->
+
+        <div class="ai-kpi-card">
+
+            <div class="ai-kpi-label">
+                INFERENCE STATUS
+            </div>
+
+            <div class="ai-kpi-value normal">
+                WAITING
+            </div>
+
+            <div class="ai-kpi-description">
+                Menunggu dataset aktual.
+            </div>
+
+        </div>
+
+
+        <!-- ANOMALY SCORE -->
+
+        <div class="ai-kpi-card">
+
+            <div class="ai-kpi-label">
+                ANOMALY SCORE
+            </div>
+
+            <div class="ai-kpi-value score">
+                --
+            </div>
+
+            <div class="ai-kpi-description">
+                Score tersedia setelah model aktif.
+            </div>
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- =====================================================
+         ABOUT ALGORITHM
+    ====================================================== -->
+
+    <section class="ai-card">
+
+        <div class="ai-section-header">
+
+            <div>
+                <span class="ai-section-number">
+                    01
+                </span>
+
+                <span class="ai-section-title">
+                    ABOUT ISOLATION FOREST
+                </span>
+            </div>
+
+            <span class="ai-status-badge">
+                MODEL DEVELOPMENT
+            </span>
+
+        </div>
+
+
+        <div class="ai-description-grid">
+
+            <div>
+
+                <h3>
+                    Apa yang dilakukan algoritma?
+                </h3>
+
+                <p>
+                    Isolation Forest merupakan algoritma
+                    unsupervised learning yang digunakan untuk
+                    mengidentifikasi data yang memiliki
+                    karakteristik berbeda dari pola data normal.
+                </p>
+
+                <p>
+                    Pada sistem Smart Power Monitoring,
+                    algoritma ini dirancang untuk membantu
+                    mendeteksi kondisi kelistrikan yang tidak
+                    normal berdasarkan data hasil monitoring.
+                </p>
+
+            </div>
+
+
+            <div class="purpose-box">
+
+                <div class="purpose-title">
+                    TUJUAN
+                </div>
+
+                <ul>
+                    <li>Mendeteksi pola kelistrikan yang menyimpang.</li>
+                    <li>Mengidentifikasi kondisi anomali.</li>
+                    <li>Memberikan anomaly score.</li>
+                    <li>Mendukung monitoring kondisi sistem.</li>
+                </ul>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         AI INFERENCE PIPELINE
+    ====================================================== -->
+
+    <section class="ai-card">
+
+        <div class="ai-section-header">
+
+            <div>
+                <span class="ai-section-number">
+                    02
+                </span>
+
+                <span class="ai-section-title">
+                    AI INFERENCE PIPELINE
+                </span>
+            </div>
+
+        </div>
+
+
+        <p class="pipeline-description">
+            Data hasil akuisisi diproses secara bertahap
+            sebelum digunakan untuk menentukan kondisi
+            normal atau anomali.
+        </p>
+
+
+        <div class="pipeline">
+
+
+            <!-- STEP 1 -->
+
+            <div class="pipeline-step">
+
+                <div class="pipeline-icon">
+                    01
+                </div>
+
+                <div class="pipeline-content">
+
+                    <h3>
+                        Data Acquisition
+                    </h3>
+
+                    <p>
+                        Pengambilan data kelistrikan
+                        dari sistem monitoring.
+                    </p>
+
+                    <span>
+                        PZEM R / S / T
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="pipeline-arrow">
+                →
+            </div>
+
+
+            <!-- STEP 2 -->
+
+            <div class="pipeline-step">
+
+                <div class="pipeline-icon">
+                    02
+                </div>
+
+                <div class="pipeline-content">
+
+                    <h3>
+                        Preprocessing
+                    </h3>
+
+                    <p>
+                        Persiapan dan pemeriksaan
+                        data sebelum analisis.
+                    </p>
+
+                    <span>
+                        Data Preparation
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="pipeline-arrow">
+                →
+            </div>
+
+
+            <!-- STEP 3 -->
+
+            <div class="pipeline-step">
+
+                <div class="pipeline-icon">
+                    03
+                </div>
+
+                <div class="pipeline-content">
+
+                    <h3>
+                        Feature Engineering
+                    </h3>
+
+                    <p>
+                        Menentukan variabel yang
+                        digunakan sebagai input model.
+                    </p>
+
+                    <span>
+                        V / I / P / PF / f
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="pipeline-arrow">
+                →
+            </div>
+
+
+            <!-- STEP 4 -->
+
+            <div class="pipeline-step">
+
+                <div class="pipeline-icon">
+                    04
+                </div>
+
+                <div class="pipeline-content">
+
+                    <h3>
+                        Isolation Forest
+                    </h3>
+
+                    <p>
+                        Model menganalisis pola data
+                        dan menghasilkan anomaly score.
+                    </p>
+
+                    <span>
+                        AI Inference
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="pipeline-arrow">
+                →
+            </div>
+
+
+            <!-- STEP 5 -->
+
+            <div class="pipeline-step">
+
+                <div class="pipeline-icon">
+                    05
+                </div>
+
+                <div class="pipeline-content">
+
+                    <h3>
+                        Decision
+                    </h3>
+
+                    <p>
+                        Hasil inference digunakan untuk
+                        menentukan kondisi sistem.
+                    </p>
+
+                    <span>
+                        Normal / Anomaly
+                    </span>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         INPUT FEATURES + RESULT
+    ====================================================== -->
+
+    <section class="ai-two-column">
+
+
+        <!-- INPUT -->
+
+        <div class="ai-card">
+
+            <div class="ai-section-header">
+
+                <div>
+                    <span class="ai-section-number">
+                        03
+                    </span>
+
+                    <span class="ai-section-title">
+                        INPUT FEATURES
+                    </span>
+                </div>
+
+            </div>
+
+
+            <p class="feature-intro">
+                Variabel kelistrikan yang direncanakan
+                menjadi masukan sistem analitik.
+            </p>
+
+
+            <div class="feature-grid">
+
+                <div class="feature-item">
+                    <strong>Voltage</strong>
+                    <span>R / S / T</span>
+                </div>
+
+                <div class="feature-item">
+                    <strong>Current</strong>
+                    <span>R / S / T</span>
+                </div>
+
+                <div class="feature-item">
+                    <strong>Power</strong>
+                    <span>R / S / T</span>
+                </div>
+
+                <div class="feature-item">
+                    <strong>Power Factor</strong>
+                    <span>R / S / T</span>
+                </div>
+
+                <div class="feature-item">
+                    <strong>Frequency</strong>
+                    <span>System</span>
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- RESULT -->
+
+        <div class="ai-card">
+
+            <div class="ai-section-header">
+
+                <div>
+                    <span class="ai-section-number">
+                        04
+                    </span>
+
+                    <span class="ai-section-title">
+                        INFERENCE RESULT
+                    </span>
+                </div>
+
+            </div>
+
+
+            <div class="result-placeholder">
+
+                <div class="result-icon">
+                    AI
+                </div>
+
+                <h3>
+                    WAITING FOR REAL DATASET
+                </h3>
+
+                <p>
+                    Model belum dijalankan karena dataset
+                    aktual dari sistem monitoring masih
+                    dalam tahap pengumpulan.
+                </p>
+
+                <span>
+                    Result: Not Available
+                </span>
+
+            </div>
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- =====================================================
+         ANOMALY MONITORING
+    ====================================================== -->
+
+    <section class="ai-card">
+
+        <div class="ai-section-header">
+
+            <div>
+                <span class="ai-section-number">
+                    05
+                </span>
+
+                <span class="ai-section-title">
+                    ANOMALY MONITORING
+                </span>
+            </div>
+
+            <span class="ai-status-badge">
+                WAITING DATA
+            </span>
+
+        </div>
+
+
+        <div class="monitoring-placeholder">
+
+            <div class="monitoring-icon">
+                ◇
+            </div>
+
+            <h3>
+                NO INFERENCE DATA AVAILABLE
+            </h3>
+
+            <p>
+                Grafik anomaly score akan ditampilkan
+                setelah sistem memperoleh dataset aktual
+                dan model Isolation Forest telah aktif.
+            </p>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         RECENT EVENTS
+    ====================================================== -->
+
+    <section class="ai-card">
+
+        <div class="ai-section-header">
+
+            <div>
+                <span class="ai-section-number">
+                    06
+                </span>
+
+                <span class="ai-section-title">
+                    RECENT EVENTS
+                </span>
+            </div>
+
+        </div>
+
+
+        <div class="event-empty">
+
+            <span class="event-dot"></span>
+
+            <div>
+
+                <strong>
+                    No anomaly event detected
+                </strong>
+
+                <p>
+                    Belum terdapat event dari model AI.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+</main>
+
+
+</body>
+</html>

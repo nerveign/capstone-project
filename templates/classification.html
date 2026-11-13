@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Load Classification - Smart Power Monitoring</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/classification.css') }}">
+
+</head>
+
+<body>
+
+<aside class="sidebar">
+
+    <div class="brand">
+
+        <div class="brand-icon"></div>
+
+        <h2>
+            SMART POWER<br>
+            MONITORING
+        </h2>
+
+    </div>
+
+
+    <nav class="menu">
+
+        <a href="/" class="menu-item">
+            Dashboard
+        </a>
+
+        <a href="#" class="menu-item">
+            ◉ Realtime Monitoring
+        </a>
+
+        <a href="#" class="menu-item">
+            ▥ Historical Data
+        </a>
+
+        {# Menu Energy Analysis disembunyikan sementara. Hapus pembuka dan penutup komentar ini untuk menampilkan lagi.
+<a href="#" class="menu-item">
+            ⚡ Energy Analysis
+        </a>
+#}
+
+
+        <div class="menu-section-title">
+            AI ANALYTICS
+        </div>
+
+
+        <a href="/anomaly" class="menu-item">
+            △ Anomaly Detection
+        </a>
+
+        <a href="/prediction" class="menu-item">
+            ↗ Load Prediction
+        </a>
+
+        <a href="/classification" class="menu-item active">
+            ◇ Load Classification
+        </a>
+
+
+        {# Menu System Status, Reports, Settings disembunyikan sementara. Hapus pembuka dan penutup komentar ini untuk menampilkan lagi.
+<a href="#" class="menu-item">
+            ◇ System Status
+        </a>
+
+        <a href="#" class="menu-item">
+            ▤ Reports
+        </a>
+
+        <a href="#" class="menu-item">
+            ⚙ Settings
+        </a>
+#}
+
+    </nav>
+
+
+    <div class="gateway-box">
+
+        <div>
+
+            <span class="online-dot"></span>
+
+            SDP LINE 14 GATEWAY
+
+        </div>
+
+        <br>
+
+        <div style="color:#39e785;">
+            Gateway Online
+        </div>
+
+        <br>
+
+        <div style="text-align:center;">
+            v1.0.0
+        </div>
+
+    </div>
+
+</aside>
+
+
+<main class="main">
+
+<div class="rf-page">
+<div class="wrap">
+
+<header>
+  <div>
+    <div class="eyebrow">AI ANALYTICS</div>
+    <h1>CLASSIFICATION</h1>
+    <p class="sub">Random Forest</p>
+    <p>Klasifikasi ketidakseimbangan arus pada Panel SDP Line 14.</p>
+  </div>
+  <div class="online">SYSTEM ONLINE</div>
+</header>
+
+<div class="stats">
+  <div class="rf-card"><small>MODEL STATUS</small><div class="big bad" id="model-status">WAITING MODEL</div><p id="model-note">Random Forest belum dilatih.</p></div>
+  <div class="rf-card"><small>INFERENCE STATUS</small><div class="big ok" id="infer-status">WAITING</div><p>Menunggu data pengukuran baru.</p></div>
+  <div class="rf-card"><small>CLASS PREDICTION</small><div class="big mute" id="class-pred">—</div><p>Hasil Seimbang / Tidak Seimbang tersedia setelah model aktif.</p></div>
+</div>
+
+<section class="rf-card">
+  <div class="sh"><span class="num">01</span><h2>About Random Forest</h2><span class="pill">MODEL DEVELOPMENT</span></div>
+  <div class="two">
+    <div>
+      <h3>Apa yang dilakukan algoritma?</h3>
+      <p>Random Forest adalah algoritma supervised learning yang membangun banyak pohon keputusan, lalu menggabungkan suara dari setiap pohon untuk menentukan kelas akhir.</p>
+      <p>Pada sistem Smart Power Monitoring, algoritma ini mempelajari hubungan antara parameter kelistrikan dan kondisi ketidakseimbangan arus pada Panel SDP Line 14.</p>
+    </div>
+    <div class="goal"><b>TUJUAN</b>
+      <ul>
+        <li>Mengklasifikasikan kondisi arus: Seimbang atau Tidak Seimbang.</li>
+        <li>Mempelajari pola dari fitur tegangan, daya, dan faktor daya.</li>
+        <li>Mengukur kemampuan model dengan accuracy, precision, recall, dan F1-score.</li>
+        <li>Mendukung monitoring kondisi beban panel.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="rf-card">
+  <div class="sh"><span class="num">02</span><h2>ML Pipeline</h2></div>
+  <p class="lead">Data pengukuran diproses bertahap, dari pengumpulan sampai evaluasi model.</p>
+  <div class="pipe">
+    <div class="step"><span class="num">01</span><h4>Data Acquisition</h4><p>Pengukuran Panel SDP Line 14: tegangan, arus, daya, dan faktor daya.</p><span class="tag">Panel SDP Line 14</span></div>
+    <div class="step"><span class="num">02</span><h4>Pembuatan Label (Y)</h4><p>Arus R, S, T dihitung menjadi persentase ketidakseimbangan, lalu dilabeli.</p><span class="tag">Seimbang</span><span class="tag">Tidak Seimbang</span></div>
+    <div class="step"><span class="num">03</span><h4>Pemilihan Fitur (X)</h4><p>Parameter kelistrikan lain dipilih sebagai masukan model.</p><span class="tag">V</span><span class="tag">P</span><span class="tag">PF</span></div>
+    <div class="step"><span class="num">04</span><h4>Training</h4><p>Random Forest dilatih dengan fitur X dan label Y untuk mempelajari polanya.</p><span class="tag">Fit X → Y</span></div>
+    <div class="step"><span class="num">05</span><h4>Klasifikasi</h4><p>Model memprediksi data baru berdasarkan fitur X.</p><span class="tag">Seimbang / Tidak Seimbang</span></div>
+    <div class="step"><span class="num">06</span><h4>Evaluasi</h4><p>Hasil klasifikasi diuji untuk mengetahui kemampuan model.</p><span class="tag">Accuracy</span><span class="tag">F1-score</span></div>
+  </div>
+</section>
+
+<div class="split">
+  <section class="rf-card">
+    <div class="sh"><span class="num">03</span><h2>Input Features &amp; Label</h2></div>
+    <p class="lead">Fitur (X) menjadi masukan model, sedangkan label (Y) adalah hasil hitung ketidakseimbangan arus.</p>
+    <div class="feat">
+      <div class="f"><b>Voltage</b><span>Tegangan</span></div>
+      <div class="f"><b>Power</b><span>Daya</span></div>
+      <div class="f"><b>Power Factor</b><span>Faktor daya</span></div>
+    </div>
+    <div class="lab"><b>TARGET (Y)</b>
+      <p>Dihitung dari arus fasa R, S, dan T menjadi persentase ketidakseimbangan.</p>
+      <span class="tag">Seimbang</span><span class="tag">Tidak Seimbang</span>
+    </div>
+  </section>
+  <section class="rf-card">
+    <div class="sh"><span class="num">04</span><h2>Inference Result</h2></div>
+    <div class="result">
+      <div class="ai">AI</div>
+      <h4 id="res-title">Belum ada hasil klasifikasi</h4>
+      <p id="res-sub">Isi data pengukuran lalu klik Klasifikasi.</p>
+      <div class="inputs">
+        <label>Voltage (V)<input id="in-voltage" type="number" step="any" value="380"></label>
+        <label>Power (kW)<input id="in-power" type="number" step="any" value="45"></label>
+        <label>Power Factor<input id="in-pf" type="number" step="any" value="0.9"></label>
+      </div>
+      <button id="btn-predict" type="button">Klasifikasi</button>
+      <div class="vote"><span>Seimbang<b id="p-seimbang">–</b></span><span>Tidak Seimbang<b id="p-tidak">–</b></span></div>
+    </div>
+  </section>
+</div>
+
+<section class="rf-card">
+  <div class="sh"><span class="num">05</span><h2>Model Evaluation</h2></div>
+  <p class="lead">Nilai muncul setelah model diuji dengan data uji.</p>
+  <div class="metrics">
+    <div class="m"><small>ACCURACY</small><div class="v" id="m-acc">–</div><p>Proporsi prediksi yang benar dari seluruh data.</p></div>
+    <div class="m"><small>PRECISION</small><div class="v" id="m-prec">–</div><p>Ketepatan prediksi Tidak Seimbang.</p></div>
+    <div class="m"><small>RECALL</small><div class="v" id="m-rec">–</div><p>Kemampuan menemukan semua kasus Tidak Seimbang.</p></div>
+    <div class="m"><small>F1-SCORE</small><div class="v" id="m-f1">–</div><p>Rata-rata harmonik precision dan recall.</p></div>
+  </div>
+</section>
+
+</div>
+</div>
+
+</main>
+
+<script src="{{ url_for('static', filename='js/classification.js') }}"></script>
+
+</body>
+</html>

@@ -1,0 +1,12 @@
+Flask>=3.1,<4
+requests>=2.32,<3
+python-dotenv>=1.0
+
+# MQTT client (mqtt_client.py)
+paho-mqtt>=2.0
+
+# Load Classification (Random Forest)
+numpy>=1.24
+pandas>=2.0
+scikit-learn>=1.3
+joblib>=1.3

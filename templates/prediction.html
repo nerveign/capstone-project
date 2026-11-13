@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Load Prediction - Smart Power Monitoring</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/prediction/prediction.css') }}">
+
+</head>
+
+<body>
+
+<aside class="sidebar">
+
+    <div class="brand">
+
+        <div class="brand-icon"></div>
+
+        <h2>
+            SMART POWER<br>
+            MONITORING
+        </h2>
+
+    </div>
+
+
+    <nav class="menu">
+
+        <a href="/" class="menu-item">
+            Dashboard
+        </a>
+
+        <a href="#" class="menu-item">
+            ◉ Realtime Monitoring
+        </a>
+
+        <a href="#" class="menu-item">
+            ▥ Historical Data
+        </a>
+
+        {# Menu Energy Analysis disembunyikan sementara. Hapus pembuka dan penutup komentar ini untuk menampilkan lagi.
+<a href="#" class="menu-item">
+            ⚡ Energy Analysis
+        </a>
+#}
+
+
+        <div class="menu-section-title">
+            AI ANALYTICS
+        </div>
+
+
+        <a href="/anomaly" class="menu-item">
+            △ Anomaly Detection
+        </a>
+
+        <a href="/prediction" class="menu-item active">
+            ↗ Load Prediction
+        </a>
+
+        <a href="/classification" class="menu-item">
+            ◇ Load Classification
+        </a>
+
+
+        {# Menu System Status, Reports, Settings disembunyikan sementara. Hapus pembuka dan penutup komentar ini untuk menampilkan lagi.
+<a href="#" class="menu-item">
+            ◇ System Status
+        </a>
+
+        <a href="#" class="menu-item">
+            ▤ Reports
+        </a>
+
+        <a href="#" class="menu-item">
+            ⚙ Settings
+        </a>
+#}
+
+    </nav>
+
+
+    <div class="gateway-box">
+
+        <div>
+            <span class="online-dot"></span>
+            SDP LINE 14 GATEWAY
+        </div>
+
+        <br>
+
+        <div style="color:#39e785;">
+            Gateway Online
+        </div>
+
+        <br>
+
+        <div style="text-align:center;">
+            v1.0.0
+        </div>
+
+    </div>
+
+</aside>
+
+
+<main class="main">
+
+<div class="xgb-page">
+
+<header class="topbar">
+          <div class="title-area">
+            <div class="eyebrow">AI ANALYTICS / PREDIKSI KONSUMSI</div>
+            <h1>Prediksi Konsumsi Energi</h1>
+            <p>Rancang bangun sistem prediksi harian berbasis XGBoost untuk Panel SDP Line 14</p>
+          </div>
+          <div class="topbar-actions">
+            <div class="demo-banner"><span class="sparkle">✦</span><div><strong>DATA DUMMY</strong><small>Preview penelitian</small></div></div>
+            <div class="online-status"><span class="xp-online-dot"></span><div><strong>MODEL READY</strong><small>Last run · 25 Sep 2026, 16:35</small></div></div>
+            <button class="icon-button" id="refreshTop" aria-label="Refresh prediksi" title="Refresh prediksi">↻</button>
+          </div>
+        </header>
+
+        <section class="context-strip">
+          <div class="context-main"><span class="panel-glyph">▥</span><div><strong>Panel SDP Line 14</strong><span>PT Roda Pasifik Mandiri · Target: total konsumsi energi harian</span></div></div>
+          <div class="context-meta"><span>Horizon <strong>1 hari kerja</strong></span><span>Unit <strong>kWh</strong></span><span>Model <strong>XGBoost</strong></span></div>
+        </section>
+
+        <section class="realtime-section" aria-label="Monitoring realtime arus dan tegangan">
+          <div class="realtime-heading"><div><span class="section-kicker">REALTIME MONITORING</span><h2>Arus &amp; Tegangan Tiga Fasa</h2><p>Nilai simulasi live dari Panel SDP Line 14 · pembaruan setiap 2 detik</p></div><div class="live-badge"><span class="xp-online-dot"></span> LIVE DATA</div></div>
+          <div class="phase-grid">
+            <article class="phase-card xp-phase-r"><div class="phase-head"><span class="phase-name">PHASE R</span><span class="phase-status">Normal</span></div><div class="phase-values"><div><span>Arus</span><strong id="currentR">3,47 <em>A</em></strong></div><div><span>Tegangan</span><strong id="voltageR">227,0 <em>V</em></strong></div></div><div class="phase-bar"><span id="phaseBarR"></span></div></article>
+            <article class="phase-card xp-phase-s"><div class="phase-head"><span class="phase-name">PHASE S</span><span class="phase-status">Normal</span></div><div class="phase-values"><div><span>Arus</span><strong id="currentS">3,14 <em>A</em></strong></div><div><span>Tegangan</span><strong id="voltageS">228,1 <em>V</em></strong></div></div><div class="phase-bar"><span id="phaseBarS"></span></div></article>
+            <article class="phase-card xp-phase-t"><div class="phase-head"><span class="phase-name">PHASE T</span><span class="phase-status">Normal</span></div><div class="phase-values"><div><span>Arus</span><strong id="currentT">3,39 <em>A</em></strong></div><div><span>Tegangan</span><strong id="voltageT">229,4 <em>V</em></strong></div></div><div class="phase-bar"><span id="phaseBarT"></span></div></article>
+          </div>
+          <div class="realtime-charts">
+            <article class="panel realtime-chart-panel"><div class="panel-header"><div><h3>Trend arus per fasa</h3><span class="panel-caption">Ampere · 10 pembacaan terakhir</span></div><div class="legend"><span><i class="legend-dot phase-r-dot"></i> R</span><span><i class="legend-dot phase-s-dot"></i> S</span><span><i class="legend-dot phase-t-dot"></i> T</span></div></div><div class="realtime-svg-wrap"><svg id="currentChart" viewBox="0 0 700 185" role="img" aria-label="Grafik realtime arus fasa R S T"></svg></div></article>
+            <article class="panel realtime-chart-panel"><div class="panel-header"><div><h3>Trend tegangan fasa</h3><span class="panel-caption">Volt · tegangan fasa-netral</span></div><span class="unit-badge">V RMS</span></div><div class="realtime-svg-wrap"><svg id="voltageChart" viewBox="0 0 700 185" role="img" aria-label="Grafik realtime tegangan fasa R S T"></svg></div></article>
+          </div>
+        </section>
+
+        <section class="xp-kpi-grid" aria-label="Ringkasan prediksi">
+          <article class="xp-kpi-card featured">
+            <div class="kpi-top"><span class="kpi-label">PREDIKSI HARI KERJA BERIKUTNYA</span><span class="xp-kpi-icon icon-predict">⌁</span></div>
+            <div class="xp-kpi-value"><span id="forecastValue">21,84</span><small>kWh</small></div>
+            <div class="kpi-foot"><span class="forecast-date" id="forecastDate">Senin, 28 Sep 2026</span><span class="pill pill-purple">XGBoost</span></div>
+          </article>
+          <article class="xp-kpi-card">
+            <div class="kpi-top"><span class="kpi-label">AKTUAL HARI TERAKHIR</span><span class="xp-kpi-icon icon-actual">↗</span></div>
+            <div class="xp-kpi-value"><span id="actualValue">20,97</span><small>kWh</small></div>
+            <div class="kpi-foot"><span id="actualDate">Jumat, 25 Sep 2026</span><span class="muted-text">data terukur</span></div>
+          </article>
+          <article class="xp-kpi-card">
+            <div class="kpi-top"><span class="kpi-label">PERUBAHAN TERHADAP AKTUAL</span><span class="xp-kpi-icon icon-change">↗</span></div>
+            <div class="xp-kpi-value value-green"><span id="changeValue">+4,15</span><small>%</small></div>
+            <div class="kpi-foot"><span class="trend-up">↑ Diperkirakan meningkat</span><span class="muted-text">hari ke depan</span></div>
+          </article>
+          <article class="xp-kpi-card model-card">
+            <div class="kpi-top"><span class="kpi-label">KINERJA MODEL</span><span class="xp-kpi-icon icon-model">◎</span></div>
+            <div class="metric-row"><span>MAE</span><strong>0,82 <em>kWh</em></strong></div>
+            <div class="metric-row"><span>RMSE</span><strong>1,16 <em>kWh</em></strong></div>
+            <div class="metric-row"><span>MAPE</span><strong>4,80 <em>%</em></strong></div>
+          </article>
+        </section>
+
+        <section class="toolbar-row">
+          <div class="section-heading"><span class="section-kicker">FORECAST PERFORMANCE</span><h2>Aktual vs Prediksi</h2><p>Perbandingan konsumsi harian dan hasil prediksi XGBoost</p></div>
+          <div class="toolbar-controls"><div class="segmented" role="group" aria-label="Rentang grafik"><button data-range="7">7 hari</button><button class="selected" data-range="14">14 hari</button><button data-range="30">30 hari</button></div><button class="outline-button" id="refreshButton"><span>↻</span> Refresh prediksi</button><button class="primary-button" id="exportButton"><span>⇩</span> Export CSV</button></div>
+        </section>
+
+        <section class="chart-grid">
+          <article class="panel chart-panel large-panel">
+            <div class="panel-header"><div><h3>Tren konsumsi harian</h3><span class="panel-caption">Data aktual dibandingkan hasil prediksi · kWh</span></div><div class="legend"><span><i class="legend-dot actual"></i> Aktual</span><span><i class="legend-dot prediction"></i> Prediksi</span></div></div>
+            <div class="line-chart-wrap"><svg id="lineChart" viewBox="0 0 760 285" role="img" aria-label="Grafik aktual versus prediksi"></svg></div>
+          </article>
+          <article class="panel forecast-panel">
+            <div class="panel-header"><div><h3>Prediksi terbaru</h3><span class="panel-caption">Output yang akan digunakan sebagai informasi pendukung</span></div><span class="status-tag"><span class="xp-online-dot"></span> Ready</span></div>
+            <div class="forecast-hero"><div class="forecast-date-label">TARGET HARI KERJA BERIKUTNYA</div><div class="forecast-big"><span id="forecastValueLarge">21,84</span><small>kWh</small></div><div class="forecast-target" id="forecastDateLarge">Senin, 28 September 2026</div></div>
+            <div class="range-box"><div><span>Rentang estimasi</span><strong>20,75 – 22,93 kWh</strong></div><div class="range-track"><span></span></div><small>Interval tampilan demo · ±5%</small></div>
+            <div class="forecast-detail"><div><span>Aktual terakhir</span><strong>20,97 kWh</strong></div><div><span>Perubahan</span><strong class="green-text">+4,15%</strong></div><div><span>Status</span><strong><span class="mini-status">Prediksi tersedia</span></strong></div></div>
+          </article>
+        </section>
+
+        <section class="lower-grid">
+          <article class="panel bar-panel">
+            <div class="panel-header"><div><h3>Pola konsumsi harian</h3><span class="panel-caption">Ringkasan data hari kerja pada periode terpilih</span></div><span class="chart-unit">kWh / hari</span></div>
+            <div class="bar-chart-wrap"><svg id="barChart" viewBox="0 0 650 220" role="img" aria-label="Grafik batang pola konsumsi"></svg></div>
+          </article>
+          <article class="panel model-panel">
+            <div class="panel-header"><div><h3>Informasi model</h3><span class="panel-caption">Konfigurasi mockup untuk demo dashboard</span></div><span class="model-badge">XGBoost</span></div>
+            <div class="model-grid"><div><span>Target model</span><strong>Total kWh harian</strong></div><div><span>Horizon</span><strong>1 hari kerja</strong></div><div><span>Data latih</span><strong>60 hari kerja</strong></div><div><span>Algoritma</span><strong>Gradient boosting</strong></div></div>
+            <div class="feature-title">FITUR INPUT</div><div class="feature-chips"><span>kWh hari sebelumnya</span><span>rata-rata daya</span><span>arus R / S / T</span><span>tegangan RS / RT / ST</span><span>hari dalam minggu</span></div>
+            <div class="data-quality"><div class="quality-head"><span>Kualitas data demo</span><strong>100%</strong></div><div class="quality-track"><span></span></div><div class="quality-foot"><span><i class="quality-dot"></i> Lengkap</span><span>0 baris hilang</span></div></div>
+          </article>
+        </section>
+
+        <section class="method-section">
+          <div class="section-heading method-heading"><span class="section-kicker">MODEL EXPLAINABILITY</span><h2>Mengenal XGBoost</h2><p>Ringkasan metode dan alur pembentukan prediksi pada penelitian ini</p></div>
+          <div class="method-grid">
+            <article class="panel explainer-panel"><div class="method-title-row"><div class="method-logo">XG</div><div><h3>Extreme Gradient Boosting</h3><span class="panel-caption">Mesin prediksi di dalam sistem</span></div><span class="model-badge">REGRESSION</span></div><p class="explain-copy">XGBoost adalah algoritma machine learning berbasis <strong>ensemble decision tree</strong>. Model membangun pohon keputusan secara bertahap; setiap pohon baru berusaha memperbaiki kesalahan prediksi dari pohon sebelumnya. Pendekatan ini sesuai untuk data tabular kelistrikan dengan hubungan nonlinier antarfitur.</p><div class="concept-points"><div><span class="concept-icon">01</span><div><strong>Belajar bertahap</strong><small>Memperbaiki residual dari prediksi sebelumnya</small></div></div><div><span class="concept-icon">02</span><div><strong>Menangani hubungan nonlinier</strong><small>Mempelajari interaksi daya, arus, tegangan, dan waktu</small></div></div><div><span class="concept-icon">03</span><div><strong>Output regresi</strong><small>Menghasilkan angka prediksi total kWh harian</small></div></div></div></article>
+            <article class="panel flow-panel"><div class="panel-header"><div><h3>Alur data sampai hasil</h3><span class="panel-caption">Pipeline prediksi satu hari kerja berikutnya</span></div><span class="flow-status"><span class="xp-online-dot"></span> Pipeline aktif</span></div><div class="flow-steps"><div class="flow-step"><span class="flow-number">1</span><div><strong>Ambil data</strong><small>Timestamp, arus, tegangan, daya, kWh</small></div></div><div class="flow-connector"></div><div class="flow-step"><span class="flow-number">2</span><div><strong>Preprocessing</strong><small>Cek missing value dan timestamp</small></div></div><div class="flow-connector"></div><div class="flow-step"><span class="flow-number">3</span><div><strong>Agregasi harian</strong><small>Interval pengukuran → total kWh/hari</small></div></div><div class="flow-connector"></div><div class="flow-step"><span class="flow-number">4</span><div><strong>Model XGBoost</strong><small>Latih model dari data historis</small></div></div><div class="flow-connector"></div><div class="flow-step result-step"><span class="flow-number">5</span><div><strong>Hasil prediksi</strong><small>Total kWh hari kerja berikutnya</small></div></div></div></article>
+          </div>
+        </section>
+
+        <section class="evaluation-section">
+          <div class="section-heading method-heading"><span class="section-kicker">MODEL EVALUATION</span><h2>Evaluasi Performa Prediksi</h2><p>Menilai kedekatan output XGBoost terhadap konsumsi aktual pada data pengujian</p></div>
+          <div class="evaluation-grid">
+            <article class="panel eval-metrics"><div class="panel-header"><div><h3>Metrik evaluasi</h3><span class="panel-caption">Semakin kecil nilai error, semakin dekat prediksi dengan aktual</span></div><span class="data-tag">TEST SET</span></div><div class="eval-metric-list"><div class="eval-metric"><div class="eval-icon blue">MAE</div><div><strong>0,82 <small>kWh</small></strong><span>Mean Absolute Error</span></div><div class="metric-quality good">Baik</div></div><div class="eval-metric"><div class="eval-icon purple">RMSE</div><div><strong>1,16 <small>kWh</small></strong><span>Root Mean Squared Error</span></div><div class="metric-quality good">Baik</div></div><div class="eval-metric"><div class="eval-icon pink">MAPE</div><div><strong>4,80 <small>%</small></strong><span>Mean Absolute Percentage Error</span></div><div class="metric-quality good">&lt; 5%</div></div></div></article>
+            <article class="panel baseline-panel"><div class="panel-header"><div><h3>Perbandingan dengan baseline</h3><span class="panel-caption">XGBoost dibandingkan prediksi hari kerja sebelumnya</span></div><span class="improvement-badge">↓ 32,8% error</span></div><div class="compare-row"><div class="compare-label"><span>Baseline sederhana</span><strong>1,22 kWh</strong></div><div class="compare-track"><span class="baseline-fill"></span></div></div><div class="compare-row"><div class="compare-label"><span>XGBoost</span><strong class="green-text">0,82 kWh</strong></div><div class="compare-track"><span class="xgb-fill"></span></div></div><div class="baseline-note"><span class="note-icon">i</span><span>Baseline menggunakan nilai konsumsi hari kerja sebelumnya sebagai prediksi. Angka ini merupakan data dummy untuk demonstrasi.</span></div></article>
+            <article class="panel error-panel"><div class="panel-header"><div><h3>Tren error prediksi</h3><span class="panel-caption">Error absolut per hari kerja</span></div><span class="unit-badge">kWh</span></div><div class="error-bars"><div><span style="height:44%"></span><small>18</small></div><div><span style="height:28%"></span><small>21</small></div><div><span style="height:52%"></span><small>22</small></div><div><span style="height:35%"></span><small>23</small></div><div><span style="height:70%"></span><small>24</small></div><div><span class="last-error" style="height:31%"></span><small>25</small></div></div><div class="error-axis"><span>Sep</span><span>Error lebih rendah</span><strong>Rata-rata 0,82</strong></div></article>
+          </div>
+        </section>
+
+        <section class="panel history-panel">
+          <div class="panel-header"><div><h3>Riwayat prediksi</h3><span class="panel-caption">Validasi output model terhadap konsumsi aktual</span></div><button class="text-button">Lihat semua riwayat <span>→</span></button></div>
+          <div class="table-scroll"><table><thead><tr><th>TANGGAL PREDIKSI</th><th>TANGGAL TARGET</th><th>AKTUAL</th><th>PREDIKSI</th><th>SELISIH</th><th>ERROR</th><th>STATUS</th></tr></thead><tbody id="historyBody"></tbody></table></div>
+        </section>
+        <footer class="page-footer"><span><span class="xp-online-dot"></span> SMART POWER MONITORING · Prototype UI</span><span>Data dummy untuk kebutuhan desain dan demonstrasi</span></footer>
+
+</div>
+
+</main>
+
+<div class="toast" id="toast" role="status"></div>
+
+<script src="{{ url_for('static', filename='js/prediction/app.js') }}"></script>
+<script src="{{ url_for('static', filename='js/prediction/realtime.js') }}"></script>
+
+</body>
+</html>

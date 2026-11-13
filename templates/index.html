@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Smart Power Monitoring</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+   
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+
+<body>
+
+<aside class="sidebar">
+
+    <div class="brand">
+        <div class="brand-icon"></div>
+
+        <h2>
+            SMART POWER<br>
+            MONITORING
+        </h2>
+    </div>
+
+    <nav class="menu">
+
+    <a href="#dashboard" class="menu-item active">
+        Dashboard
+    </a>
+
+    <a href="#realtime" class="menu-item">
+        ◉ Realtime Monitoring
+    </a>
+
+    <a href="#historical" class="menu-item">
+        ▥ Historical Data
+    </a>
+
+    {# Menu Energy Analysis disembunyikan sementara. Hapus pembuka dan penutup komentar ini untuk menampilkan lagi.
+<a href="#energy-analysis" class="menu-item">
+        ⚡ Energy Analysis
+    </a>
+#}
+
+    <!-- ========================= -->
+    <!-- AI ANALYTICS -->
+    <!-- ========================= -->
+
+    <div class="menu-section-title">
+        AI ANALYTICS
+    </div>
+
+    <a href="/anomaly" class="menu-item">
+        △ Anomaly Detection
+    </a>
+
+    <a href="/prediction" class="menu-item">
+        ↗ Load Prediction
+    </a>
+
+    <a href="classification" class="menu-item">
+        ◇ Load Classification
+    </a>
+
+
+    {# Menu System Status, Reports, Settings disembunyikan sementara. Hapus pembuka dan penutup komentar ini untuk menampilkan lagi.
+<a href="#" class="menu-item">
+        ◇ System Status
+    </a>
+
+    <a href="#" class="menu-item">
+        ▤ Reports
+    </a>
+
+    <a href="#" class="menu-item">
+        ⚙ Settings
+    </a>
+#}
+
+</nav>
+
+    <div class="gateway-box">
+
+        <div>
+            <span class="online-dot"></span>
+            SDP LINE 14 GATEWAY
+        </div>
+
+        <br>
+
+        <div style="color:#39e785;">
+            Gateway Online
+        </div>
+
+        <br>
+
+        <div style="text-align:center;">
+            v1.0.0
+        </div>
+
+    </div>
+
+</aside>
+
+
+
+
+<main class="main">
+
+    <!-- HEADER -->
+
+    <header class="header">
+
+        <div class="header-title">
+
+            <h1>SMART POWER MONITORING</h1>
+
+            <h2>SDP LINE 14 - GUDANG BARU</h2>
+
+            <p>PT. Roda Pasifik Mandiri</p>
+
+        </div>
+
+
+        <div class="header-right">
+
+            <div class="system-online">
+
+                <strong>
+                    <span class="online-dot"></span>
+                    SYSTEM ONLINE
+                </strong>
+
+                <br>
+
+                Last Update
+
+                <br>
+
+                03 Sep 2026 • 14:32:16
+
+            </div>
+
+
+            <div class="logo-container">
+
+                <div class="logo-container">
+                <img src="{{ url_for('static', filename='images/logo_rpm.png') }}" alt="logo_rpm" width="50">
+                <img src="{{ url_for('static', filename='images/logo_unnes.png') }}" alt="logo_unnes" width="50">
+        </div>
+
+    </header>
+
+
+    <!-- CONTENT -->
+
+    <div class="content" id="dashboard">
+
+        <!-- TOP -->
+
+        <section class="top-grid nav-section" id="realtime">
+
+            <!-- PHASE -->
+
+            <div class="card phase-container">
+
+                
+
+                <div class="phase">
+
+                    <div class="phase-title phase-r">
+                        PHASE R
+                    </div>
+
+                    <div class="measurement">
+                        <span>Voltage</span>
+                        <strong>
+                             <span id="voltage-r">--</span> <small>V</small>
+                        </strong> 
+                    </div>
+
+                    <div class="measurement">
+                        <span>Current</span>
+                        <strong>
+                             <span id="current-r">--</span> <small>A</small>
+                        </strong>
+                    </div>
+
+                    <div class="measurement">
+                        <span>Power</span>
+                        <strong>
+                             <span id="power-r">--</span> <small>kW</small>
+                        </strong>
+                    </div>
+
+                    <div class="measurement">
+                        <span>PF</span>
+                        <strong>
+                           <span id="pf-r">--</span>
+                        </strong> 
+                    </div>
+                </div>
+
+
+                <div class="phase">
+
+                    <div class="phase-title phase-s">
+                        PHASE S
+                    </div>
+
+                    <div class="measurement">
+                        <span>Voltage</span>
+                        <strong>
+                           <span id="voltage-s">--</span> <small>V</small>
+                        </strong>  
+                    </div>
+
+                    <div class="measurement">
+                        <span>Current</span>
+                        <strong>
+                             <span id="current-s">--</span> <small>A</small>
+                        </strong>
+                    </div>
+
+                    <div class="measurement">
+                        <span>Power</span>
+                        <strong>
+                            <span id="power-s">--</span> <small>kW</small>
+                        </strong>
+                    </div>
+
+                    <div class="measurement">
+                        <span>PF</span>
+                        <strong>
+                             <span id="pf-s">--</span>
+                        </strong>
+                    </div>
+
+                </div>
+
+
+                  <!-- PHASE T -->
+                <div class="phase">
+
+                    <div class="phase-title phase-t">
+                    PHASE T
+                  </div>
+
+             <div class="measurement">
+                 <span>Voltage</span>
+                <strong>
+                     <span id="voltage-t">--</span> <small>V</small>
+                </strong>
+                </div>
+
+            <div class="measurement">
+                    <span>Current</span>
+                    <strong>
+                    <span id="current-t">--</span> <small>A</small>
+                </strong>
+                 </div>
+
+             <div class="measurement">
+                 <span>Power</span>
+                  <strong>
+                     <span id="power-t">--</span> <small>kW</small>
+                    </strong>
+                </div>
+
+                <div class="measurement">
+                 <span>PF</span>
+                 <strong>
+                 <span id="pf-t">--</span>
+                </strong>
+                    </div>
+
+                    </div>
+
+                    </div>
+
+           <!-- KPI -->
+
+<div class="kpi-area">
+
+    <div class="kpi-grid">
+
+        <!-- TOTAL POWER -->
+        <div class="card kpi-card">
+
+            <div class="kpi-title">
+                TOTAL POWER
+            </div>
+
+            <div class="kpi-icon">
+                〽
+            </div>
+
+            <div class="kpi-value">
+                <span id="total-power">--</span>
+            </div>
+
+            <div class="kpi-unit">
+                kW
+            </div>
+
+        </div>
+
+
+        <!-- AVG PF -->
+        <div class="card kpi-card">
+
+            <div class="kpi-title">
+                AVG PF
+            </div>
+
+            <div class="kpi-icon">
+                〽
+            </div>
+
+            <div class="kpi-value">
+                <span id="avg-pf">--</span>
+            </div>
+
+        </div>
+
+
+        <!-- FREQUENCY -->
+        <div class="card kpi-card">
+
+            <div class="kpi-title">
+                FREQUENCY
+            </div>
+
+            <div class="kpi-icon">
+                ∿
+            </div>
+
+            <div class="kpi-value">
+                <span id="frequency">--</span>
+            </div>
+
+            <div class="kpi-unit">
+                Hz
+            </div>
+
+        </div>
+
+
+        <!-- ENERGY TODAY -->
+        <div class="card kpi-card">
+
+            <div class="kpi-title">
+                ENERGY TODAY
+            </div>
+
+            <div class="kpi-icon">
+                ⚡
+            </div>
+
+            <div class="kpi-value">
+                <span id="energy-today">--</span>
+            </div>
+
+            <div class="kpi-unit">
+                kWh
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- OPERATION STATUS -->
+
+    <div class="card operation">
+
+        <div class="operation-item">
+
+            <div class="operation-label">
+                OPERATION STATUS
+            </div>
+
+            <div class="operation-value production" id="operation-status">
+                Production
+            </div>
+
+        </div>
+
+
+        <div class="operation-item">
+
+            <div class="operation-label">
+                Sampling Interval
+            </div>
+
+            <div class="operation-value" id="sampling-interval">
+                10 s
+            </div>
+
+        </div>
+
+
+        <div class="operation-item">
+
+            <div class="operation-label">
+                Last Packet
+            </div>
+
+            <div class="operation-value" id="last-packet">
+                14:32:16
+            </div>
+
+        </div>
+
+
+        <div class="operation-item">
+
+            <div class="operation-label">
+                Load State
+            </div>
+
+            <div class="operation-value" id="load-state">
+                High
+            </div>
+
+        </div>
+
+
+        <div class="operation-item">
+
+            <div class="operation-label">
+                Shift
+            </div>
+
+            <div class="operation-value" id="shift">
+                Shift 1
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</section>
+
+
+        <!-- CHART -->
+
+        <section class="charts-grid nav-section" id="historical">
+
+            <div class="card">
+
+                <div class="chart-title">
+                    REALTIME ACTIVE POWER (TOTAL)
+                </div>
+
+                <div class="chart-wrapper">
+                    <canvas id="powerChart"></canvas>
+                </div>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="chart-title">
+                    LOAD PROFILING (HARI INI)
+                </div>
+
+                <div class="chart-wrapper">
+                    <canvas id="loadChart"></canvas>
+                </div>
+
+            </div>
+
+        </section>
+        <!-- =========================
+     BOTTOM SECTION
+========================= -->
+
+<section class="bottom-grid">
+
+
+    <!-- =========================
+         SYSTEM EVENT LOG
+    ========================== -->
+
+    <div class="card">
+
+        <div class="section-title">
+            SYSTEM EVENT LOG
+        </div>
+
+        <div id="event-log">
+
+            <div class="event-empty">
+                Tidak ada event atau anomali terbaru.
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         SYSTEM STATUS
+    ========================== -->
+
+    <div class="card">
+
+        <div class="section-title">
+            STATUS SISTEM
+        </div>
+
+
+        <div class="status-row">
+
+            <span>Status Sistem</span>
+
+            <span
+                id="system-status"
+                class="badge-normal">
+                Normal
+            </span>
+
+        </div>
+
+
+        <div class="status-row">
+
+            <span>Koneksi Perangkat</span>
+
+            <span
+                id="device-status"
+                class="badge-online">
+                Online
+            </span>
+
+        </div>
+
+
+        <div class="status-row">
+
+            <span>Waktu Update Terakhir</span>
+
+            <strong id="last-update">
+                --
+            </strong>
+
+        </div>
+
+
+        <div class="status-row">
+
+            <span>Interval Data</span>
+
+            <strong id="data-interval">
+                5 min
+            </strong>
+
+        </div>
+
+
+        <div class="status-row">
+
+            <span>Anomali Terakhir</span>
+
+            <strong id="last-anomaly">
+                Belum ada
+            </strong>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         ENERGY SUMMARY
+    ========================== -->
+
+    <div class="card nav-section" id="energy-analysis">
+
+        <div class="section-title">
+            RINGKASAN ENERGI
+        </div>
+
+
+        <div class="energy-row">
+
+            <span>Energi</span>
+
+            <strong id="summary-energy">
+                125.48 kWh
+            </strong>
+
+        </div>
+
+
+        <div class="energy-row">
+
+            <span>Daya Aktif</span>
+
+            <strong id="summary-power">
+                8.62 kW
+            </strong>
+
+        </div>
+
+
+        <div class="energy-row">
+
+            <span>Power Factor</span>
+
+            <strong id="summary-pf">
+                0.92
+            </strong>
+
+        </div>
+
+
+        <div class="energy-row">
+
+            <span>Frekuensi</span>
+
+            <strong id="summary-frequency">
+                49.98 Hz
+            </strong>
+
+        </div>
+
+    </div>
+
+</section>
+
+        
+</main>
+
+<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+
+</body>
+</html>
